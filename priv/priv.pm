@@ -14,7 +14,7 @@ require DynaLoader;
 @EXPORT_OK = qw(&add_current_privs &get_auth_privs       &get_current_privs
                 &get_process_privs &remove_current_privs &set_current_privs
                 &priv_names        &get_settable_privs   &get_default_privs);
-$VERSION = '1.2';
+$VERSION = '1.3';
 
 bootstrap VMS::Priv $VERSION;
 
@@ -91,7 +91,19 @@ Routines to add or remove priviliges:
 
 Tied Hash Interface:
 
-  tie %privtie, VMS::Priv;
+  tie %privtie, VMS::Priv <, pid>;
+
+  %privtie{privname} = <anything>; # Add a priv
+  %privtie{privname} = undef; # take one away
+  defined(%privtie{privname}) # true if you currently have the priv, else false
+  %privtie{} = (); # Remove all privs
+
+Object Interface:
+
+  $foo = new VMS::Priv <pid>;
+  $hashref = $foo->add(\@priv_list[,permanent]);
+  $hashref = $foo->remove(\@priv_list[,permanent])
+  $hashref = $foo->set(\@priv_list[,permanent])
 
 =head1 DESCRIPTION
 
@@ -100,10 +112,21 @@ must have sufficient privs to actually perform the act.
 
 =head2 Tied hash interface
 
-This really needs to be documented, but since I don't speak tied hash,
-it'll have to wait for someone else, alas.
+You can tie a hash to a pid (or to the current process' pid, if you don't
+specify a pid). Once you do that, you can check, add or remove privs via
+that hash. To add a priv, set the hash entry corresponding to the priv name
+to anything. To remove a priv, set the corresponding hash entry to undef.
+To check if you have the priv, see if the entry is defined or not.
 
 =head2 Object interface
+
+You can use the new method to create an object for the current process. The
+methods C<add>, C<remove> and C<set> take a reference to a list of privs
+and add, remove, or set the process' privs. They're currently not
+enourmously useful, mainly used by the tied hash interface. But they're
+there if you care to use them.
+
+=head2 Function interface
 
 The C<priv_names()> function simply returns as a list of the canonical names
 of all the privileges VMS::Priv knows about.  Note that some privileges have
