@@ -1,0 +1,8 @@
+CHANGES
+Makefile.PL
+MANIFEST
+priv.pm
+priv.xs
+readme
+disppriv.com
+t/basic.t
