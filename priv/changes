@@ -24,3 +24,8 @@ Revision history for Perl extension vms::priv.
 1.30  Tue July 29 13:51:45 1997
     - Documented the tied hash and object methods
     - Added some tests for the tied hash and object methods
+
+1.31  Wed Feb 25 08:12:00 1998
+    - TIEHASH was passing "package" to new rather than PID, fixed
+    - basic.t warning about "my" variables not in () fixed
+      (These patches courtesy of Charles Lane)

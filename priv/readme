@@ -25,3 +25,8 @@ extension. Installing the module (or perl) with privs might open up
 security holes, so don't do that. Installing it normally will make sure
 that normal VMS process security is in force. You can still get into
 trouble, but at least you need the privs in the first place to do it.
+
+What's new in 1.31?
+
+1.31 is a bugfix release. The tied hash interface had a bug in it, as did
+the tests. (Whoops) Patches provided by Charles Lane. (Thanks, Charles!)

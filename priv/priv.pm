@@ -14,7 +14,7 @@ require DynaLoader;
 @EXPORT_OK = qw(&add_current_privs &get_auth_privs       &get_current_privs
                 &get_process_privs &remove_current_privs &set_current_privs
                 &priv_names        &get_settable_privs   &get_default_privs);
-$VERSION = '1.3';
+$VERSION = '1.31';
 
 bootstrap VMS::Priv $VERSION;
 
@@ -36,7 +36,7 @@ sub remove        { shift; &remove_current_privs; }
 sub set           { shift; &set_current_privs;    }
 
 
-sub TIEHASH { my $obj = new VMS::Priv @_; $obj->{__PRMFLG} = $_[1] || 0; $obj; }
+sub TIEHASH { my $obj = new VMS::Priv $_[1]; $obj->{__PRMFLG} = $_[1] || 0; $obj; }
 sub FETCH   { exists $_[0]->current_privs->{$_[1]}; }
 sub EXISTS  { exists $_[0]->current_privs->{$_[1]}; }
 sub STORE   {

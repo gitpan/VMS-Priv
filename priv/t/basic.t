@@ -102,7 +102,7 @@ print "ok 17\n";
 # Does it return the same as the funcs?
 $ProcessPrivList = VMS::Priv::get_current_privs($$);
 $WorkingPriv = (keys %{$CurPrivList})[0];
-my $objkeys, $anotherus;
+my ($objkeys, $anotherus);
 $objkeys = $foo->remove([$WorkingPriv]);
 $CurPrivList = VMS::Priv::get_current_privs($$);
 $us = join(',', sort keys %$CurPrivList);
