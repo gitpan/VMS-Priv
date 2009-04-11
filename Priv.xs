@@ -86,7 +86,7 @@ static SV *prvdef_to_hvref(union prvdef *prvstruct) {
   for (i = 0; i < PRV$K_NUMBER_OF_PRIVS; i++) {
      if ( mask[i / (8 * sizeof(unsigned long int))] & /* bitwise & */
           (1 << (i % (8 * sizeof(unsigned long int)))))
-       hv_store(prvhv, Prvnames[i][0], strlen(Prvnames[i][0]),&sv_yes,0);
+       hv_store(prvhv, Prvnames[i][0], strlen(Prvnames[i][0]),&PL_sv_yes,0);
   }
 
   return newRV_noinc((SV *) prvhv);
@@ -171,7 +171,7 @@ get_current_privs(pid=0)
 
   /* Did we complete successfully? */
   if (rslt) ST(0) = sv_2mortal(rslt);
-  else ST(0) = &sv_undef;
+  else ST(0) = &PL_sv_undef;
 }
  
 void
@@ -184,7 +184,7 @@ get_process_privs(pid=0)
 
   /* Did we complete successfully? */
   if (rslt) ST(0) = sv_2mortal(rslt);
-  else ST(0) = &sv_undef;
+  else ST(0) = &PL_sv_undef;
 }
  
 void
@@ -197,7 +197,7 @@ get_auth_privs(pid=0)
 
   /* Did we complete successfully? */
   if (rslt) ST(0) = sv_2mortal(rslt);
-  else ST(0) = &sv_undef;
+  else ST(0) = &PL_sv_undef;
 }
  
 void
@@ -210,7 +210,7 @@ get_image_privs(pid=0)
 
   /* Did we complete successfully? */
   if (rslt) ST(0) = sv_2mortal(rslt);
-  else ST(0) = &sv_undef;
+  else ST(0) = &PL_sv_undef;
 }
 
 void
@@ -261,11 +261,11 @@ get_default_privs(pid=0)
         ST(0) = sv_2mortal(prvdef_to_hvref(&myprvs));
         
       } else {
-        ST(0) = &sv_undef;
+        ST(0) = &PL_sv_undef;
         SETERRNO(EVMSERR,status);
       }
     } else {
-      ST(0) = &sv_undef;
+      ST(0) = &PL_sv_undef;
       SETERRNO(EVMSERR,status);
     }
   }
@@ -317,7 +317,7 @@ add_current_privs(privref,...)
     if (status == SS$_NOTALLPRIV) SETERRNO(EVMSERR,SS$_NOTALLPRIV);
   } else {
     /* We failed. Return undef and set the error codes */
-    ST(0) = &sv_undef;
+    ST(0) = &PL_sv_undef;
     set_errno(EVMSERR);
     set_vaxc_errno(status);
   }
@@ -371,7 +371,7 @@ remove_current_privs(privref,...)
     if (status == SS$_NOTALLPRIV) SETERRNO(EVMSERR,SS$_NOTALLPRIV);
   } else {
     /* We failed. Return undef and set the error codes */
-    ST(0) = &sv_undef;
+    ST(0) = &PL_sv_undef;
     set_errno(EVMSERR);
     set_vaxc_errno(status);
   }
@@ -434,7 +434,7 @@ set_current_privs(privref,...)
     if (status == SS$_NOTALLPRIV) SETERRNO(EVMSERR,SS$_NOTALLPRIV);
   } else {
     /* We failed. Return undef and set the error codes */
-    ST(0) = &sv_undef;
+    ST(0) = &PL_sv_undef;
     set_errno(EVMSERR);
     set_vaxc_errno(status);
   }

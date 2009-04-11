@@ -29,3 +29,7 @@ Revision history for Perl extension vms::priv.
     - TIEHASH was passing "package" to new rather than PID, fixed
     - basic.t warning about "my" variables not in () fixed
       (These patches courtesy of Charles Lane)
+
+1.32  Sat Apr 11 10:36:00 2009
+    - Modernized a few global variables (e.g., sv_yes -> PL_sv_yes).
+

@@ -14,7 +14,7 @@ require DynaLoader;
 @EXPORT_OK = qw(&add_current_privs &get_auth_privs       &get_current_privs
                 &get_process_privs &remove_current_privs &set_current_privs
                 &priv_names        &get_settable_privs   &get_default_privs);
-$VERSION = '1.31';
+$VERSION = '1.32';
 
 bootstrap VMS::Priv $VERSION;
 
@@ -67,7 +67,7 @@ __END__
 
 =head1 NAME
 
-VMS::Priv - Get and set priviliges for VMS processes
+VMS::Priv - Get and set privileges for OpenVMS processes
 
 =head1 SYNOPSIS
 
@@ -176,8 +176,9 @@ of itself at some sites), we can add a test.
 
 =head1 AUTHOR
 
-Dan Sugalski <sugalsd@lbcc.cc.or.us>
+Dan Sugalski <dan@sidhe.org>
 Hacked up by Charles Bailey <bailey@genetics.upenn.edu>
+Maintained by Craig A. Berry <craigberry@mac.com>
 
 =head1 SEE ALSO
 
